@@ -1,0 +1,50 @@
+-- Khai báo biến cần sử dụng
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local StarterGui = game:GetService("StarterGui")
+
+-- Tạo UI
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = game.Players.LocalPlayer.PlayerGui
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 200, 0, 150)
+frame.Position = UDim2.new(0, 10, 0, 10)
+frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+frame.BorderSizePixel = 0
+frame.Parent = screenGui
+
+local infoLabel = Instance.new("TextLabel")
+infoLabel.Size = UDim2.new(1, 0, 1, 0)
+infoLabel.Position = UDim2.new(0, 0, 0, 0)
+infoLabel.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+infoLabel.BorderSizePixel = 0
+infoLabel.Text = "Auto Farm: OFF"
+infoLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+infoLabel.TextSize = 18
+infoLabel.Parent = frame
+
+local animeImage = Instance.new("ImageLabel")
+animeImage.Size = UDim2.new(1, 0, 1, 0)
+animeImage.Position = UDim2.new(0, 0, 0, 0)
+animeImage.Image = "rbxassetid://1234567890" -- Thay đổi ID hình ảnh của anime ở đây
+animeImage.Parent = frame
+
+-- Biến trạng thái của Farm
+local farmingEnabled = false
+
+-- Hàm để bật/tắt Farm
+local function ToggleFarm()
+    farmingEnabled = not farmingEnabled
+    if farmingEnabled then
+        infoLabel.Text = "Auto Farm: ON"
+        -- Thêm mã của chức năng farm ở đây
+        -- Ví dụ: ReplicatedStorage.RemoteEvents.Farm:FireServer(true)
+    else
+        infoLabel.Text = "Auto Farm: OFF"
+        -- Thêm mã để dừng chức năng farm (nếu cần)
+        -- Ví dụ: ReplicatedStorage.RemoteEvents.Farm:FireServer(false)
+    end
+end
+
+-- Kết nối sự kiện click vào frame để bật/tắt Farm khi người chơi nhấp vào animeImage
+animeImage.MouseButton1Click:Connect(ToggleFarm)
